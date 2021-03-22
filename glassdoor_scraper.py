@@ -1,21 +1,13 @@
+"""
+
+author: Kenarapfaik
+url: https://github.com/arapfaik/scraping-glassdoor-selenium
+"""
+
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 from selenium import webdriver
 import time
 import pandas as pd
-
-
-
-##
-
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
-options = webdriver.ChromeOptions()
-options.add_argument("start-maximized");
-options.add_argument("disable-infobars")
-options.add_argument("--disable-extensions")
-##
 
 def get_jobs(keyword, num_jobs, verbose, path, slp_time):
     '''Gathers jobs as a dataframe, scraped from Glassdoor'''
@@ -81,9 +73,9 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
             if len(jobs) >= num_jobs:
                 break
 
-            time.sleep(20)
+            time.sleep(2)
             job_button.click()
-            time.sleep(15)
+            time.sleep(2)
             collected_successfully = False
 
             while not collected_successfully:
@@ -119,7 +111,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
 
             # Going to the Company tab...
             try:
-                time.sleep(1)
+                time.sleep(2)
 
                 driver.find_element_by_xpath('.//span[text()="Company"]').click()
 
@@ -200,11 +192,15 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
                          "Sector": sector,
                          "Revenue": revenue,
                          "Competitors": competitors})
+
             # add job to jobs
 
         # Clicking on the "next page" button
+        time.sleep(2)
         try:
+
             driver.find_element_by_xpath('.//li[@class="css-1yshuyv e1gri00l3"]//a').click()
+            time.sleep(2)
         except NoSuchElementException:
             print("Scraping terminated before reaching target number of jobs. Needed {}, got {}.".format(num_jobs,
                                                                                                          len(jobs)))

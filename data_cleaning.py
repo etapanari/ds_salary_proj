@@ -46,4 +46,4 @@ df['excel'] = df['Job_Description'].apply(lambda x: 1 if "excel" in x.lower() el
 df['aws'] = df['Job_Description'].apply(lambda x: 1 if "aws" in x.lower() else 0)
 #print(df['aws'].value_counts())
 
-df.to_csv('salary_date_cleaned.csv' , index=False)
+df.to_csv('salary_data_cleaned.csv' , index=False)
